@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<!--
+	*** HOW TO READ AND EDIT THIS FILE ***
+	- Class defintions are meant to mirror the JSON structure defined by the
+	  public NGP VAN APIs. See: https://developers.ngpvan.com/.
+	- A class property should be defined as a 'list' if it corresponds to a
+	  JSON array. Otherwise it is a 'single'.
+	- The 'name' attribute should correspond to the property's key in JSON
+	- The 'type' attribute affects how the property should be deserialized in
+	  Python. Any JSON objects (contained in {}) should be defined as 'object'
+	  and given their own class definition in this file. Any other values
+	  (Boolean, integer, string, etc.) shouldn't need custom serialization
+	  handling, so they should be defined as 'value'
+	- Some objects that share many common properties and have distinct types
+	  (such as Individuals and Organizations) are implemented as subclasses of
+	  a parent class. In these cases, shared properties should go in the parent
+	  class, while properties unique to each class type should go in the
+	  subclass definitions. DO NOT define type as an explicit property in this
+	  case, because it is now an implicit part of the class hierarchy.
+-->
+<config>
+	<ngp>
+		<connection>
+			<!-- Don't forget to update these values with the ones provided to you by NGP VAN! -->
+			<key>{ENTER YOUR KEY HERE}</key>
+			<user>{ENTER YOUR USER HERE}</user>
+			<url>{ENTER YOUR URL HERE}</url>
+		</connection>
+		<classes>
+			<class name="Contact">
+				<single name="facebookProfileUrl" type="value" />
+				<single name="employer" type="value" />
+				<single name="occupation" type="value" />
+				<list name="emails" type="object" />
+				<list name="addresses" type="object" />
+				<list name="phones" type="object" />
+				<!-- standard properties not yet implemented
+				<list name="disclosureFields" type="object" />
+				<list name="externalLinks" type="object" />
+				<list name="contactCodes" type="object">
+				<single name="communicationPreferences" type="object" />
+				-->
+				<!-- custom properties go here -->
+			</class>
+			<class name="Individual">
+				<single type="value" name="prefix" />
+				<single type="value" name="firstName" />
+				<single type="value" name="middleName" />
+				<single type="value" name="lastName" />
+				<single type="value" name="nickName" />
+				<single type="value" name="suffix" />
+				<single type="value" name="salutation" />
+				<single type="value" name="mailName" />
+				<single type="value" name="spouseName" />
+			</class>
+			<class name="Organization">
+				<single type="value" name="commonName" />
+				<single type="value" name="officialName" />
+				<single type="value" name="primaryContactFirstName" />
+				<single type="value" name="primaryContactLastName" />
+			</class>
+			<class name="Email">
+				<single name="type" type="value">
+					<option name="HOME" />
+					<option name="OTHER" />
+					<option name="OTHER_2" />
+					<option name="PERSONAL" />
+					<option name="WORK" />
+					<option name="ALTERNATIVE" />
+					<option name="BILLING" />
+					<option name="MAIN" />
+					<option name="ASSISTANT" />
+				</single>
+				<single name="address" type="value" />
+				<single name="type" type="value" />
+				<single name="doNotEmail" type="value" />
+				<single name="isPrimary" type="value" />
+			</class>
+			<class name="Address">
+				<single name="type" type="value">
+					<option name="ABROAD" />
+					<option name="HOME" />
+					<option name="MILITARY" />
+					<option name="SCHOOL" />
+					<option name="TEMPORARY" />
+					<option name="VACATION" />
+					<option name="WORK" />
+					<option name="ALTERNATIVE" />
+					<option name="BILLING" />
+					<option name="MAIN" />
+					<option name="ASSISTANT" />
+					<option name="OTHER" />
+					<option name="OTHER_2" />
+					<option name="VOTING" />
+				</single>
+				<single name="line1" type="value" />
+				<single name="line2" type="value" />
+				<single name="city" type="value" />
+				<single name="stateProvince" type="value" />
+				<single name="postalCode" type="value" />
+				<single name="isPrimary" type="value" />
+				<single name="isDisclosure" type="value" />
+			</class>
+			<class name="Phone">
+				<single name="number" type="value" />
+				<single name="isPrimary" type="value" />
+				<single name="isDisclosure" type="value" />
+				<single name="type" type="value">
+					<option name="HOME" />
+					<option name="HOME_FAX" />
+					<option name="OTHER_2" />
+					<option name="VACATION" />
+					<option name="WORK" />
+					<option name="WORK_FAX" />
+					<option name="BILLING" />
+					<option name="MAIN" />
+					<option name="MAIN_FAX" />
+					<option name="OTHER_FAX" />
+					<option name="ASSISTANT" />
+					<option name="MOBILE" />
+					<option name="OTHER" />
+					<option name="TTY_TDD" />
+				</single>
+			</class>
+			<class name="Contribution">
+				<list name="attributedContactIds" type="value" />
+				<single name="method" type="value">
+					<option name="CHECK" />
+					<option name="CREDITCARD" />
+					<option name="WIRETRANSFER" />
+					<option name="CASH" />
+					<option name="DEBITCARD" />
+					<option name="ELECTRONICPAYSYSTEM" />
+					<option name="MONEYORDER" />
+					<option name="OTHER" />
+					<option name="CASHIERSCHEK" />
+				</single>
+				<single name="contactId" type="value" />
+				<single name="amount" type="value" />
+				<single name="checkDate" type="value" />
+				<single name="checkNumber" type="value" />
+				<single name="depositDate" type="value" />
+				<single name="depositNumber" type="value" />
+				<single name="date" type="value" />
+				<single name="onlineRef" type="value" />
+				<single name="marketSource" type="value" />
+				<single name="note" type="value" />
+				<single name="designation" type="object" />
+				<!-- standard properties not yet implemented
+				<single name="batch" type="object" />
+				<single name="sourceCode" type="object" />
+				<single name="pledge" type="object" />
+				<list name="disclosureFields" type="object">
+				-->
+				<!-- custom properties go here -->
+			</class>
+			<class name="Designation">
+				<single name="dataType" type="value" />
+				<single name="designationId" type="value" />
+				<single name="name" type="value" />
+				<single name="displayLabel" type="value" />
+				<single name="isRequired" type="value" />
+				<single name="defaultValue" type="value" />
+				<single name="numericRangeMin" type="value" />
+				<single name="numericRangeMax" type="value" />
+				<single name="textLengthMin" type="value" />
+				<single name="textLengthMax" type="value" />
+			</class>
+		</classes>
+	</ngp>
+	<!-- Define VAN connection info and data models separately from NGP -->
+	<van>
+		<connection />
+		<classes />
+	</van>
+</config>
